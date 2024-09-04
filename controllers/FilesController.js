@@ -27,7 +27,7 @@ class FilesController {
         name, type, parentId = 0, isPublic = false, data,
       } = req.body;
 
-      //This  Validate required fields
+      // This  Validate required fields
       if (!name || !type) {
         return res.status(400).json({ error: 'Missing required fields (name or type)' });
       }
@@ -40,7 +40,7 @@ class FilesController {
         return res.status(400).json({ error: 'Missing file data' });
       }
 
-      //This Validate parentId if provided
+      // This Validate parentId if provided
       if (parentId !== 0) {
         const parentFile = await dbClient.db.collection('files').findOne({ _id: ObjectId(parentId) });
         if (!parentFile) {
@@ -52,7 +52,7 @@ class FilesController {
         }
       }
 
-      //This Prepares the new file document
+      // This Prepares the new file document
       const newFile = {
         userId: ObjectId(userId),
         name,
@@ -80,18 +80,18 @@ class FilesController {
         fs.mkdirSync(folderPath, { recursive: true });
       }
 
-      //This Generate a unique local path for the file
+      // This Generate a unique local path for the file
       const fileExtension = path.extname(name); // Get file extension
       const fileId = uuidv4(); // Generate unique ID for the file
       const localPath = path.join(folderPath, `${fileId}${fileExtension}`);
 
-      //This Write the file content to the local path
+      // This Write the file content to the local path
       fs.writeFileSync(localPath, Buffer.from(data, 'base64'));
 
-      //This Add local path to the file document
+      // This Add local path to the file document
       newFile.localPath = localPath;
 
-      //This Insert the new file document into the database
+      // This Insert the new file document into the database
       const result = await dbClient.db.collection('files').insertOne(newFile);
 
       // This Return the new file document

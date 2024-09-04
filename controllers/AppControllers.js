@@ -39,7 +39,7 @@ class AppController {
    * @param {Object} req - The request object
    * @param {Object} res - The response object
    */
-  // static async create user
+  // The static async create user
   static async createUser(req, res) {
     const { email, password } = req.body; //This Get email and password from request body
     if (!email || !password) {

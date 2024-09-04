@@ -16,6 +16,7 @@ class UsersController {
 
   // The static async find user
   static async findUser(req, res) {
+    // The email query
     const { email } = req.query;
     try {
       const user = await dbClient.findUser(email);

@@ -94,7 +94,7 @@ class FilesController {
       //This Insert the new file document into the database
       const result = await dbClient.db.collection('files').insertOne(newFile);
 
-      // Return the new file document
+      // This Return the new file document
       return res.status(201).json({
         id: result.insertedId,
         userId,
@@ -110,4 +110,5 @@ class FilesController {
   }
 }
 
+// The export default filecontroller
 export default FilesController;

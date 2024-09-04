@@ -49,4 +49,5 @@ class UsersController {
   }
 }
 
+// The export default usercontroller
 export default UsersController;

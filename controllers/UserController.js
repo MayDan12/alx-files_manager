@@ -25,7 +25,7 @@ class UsersController {
       res.status(404).json({ error: 'User not found' });
     }
   }
-
+  // The static async getme
   static async getMe(req, res) {
     const token = req.headers['x-token'];
     if (!token) {

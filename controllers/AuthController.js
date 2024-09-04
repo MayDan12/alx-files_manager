@@ -48,33 +48,35 @@ class AuthController {
         //This Store the token in Redis with an expiration time of 24 hours (86400 seconds)
         await redisClient.set(key, user._id.toString(), 86400);
 
-        // Return the generated token
+        //This Return the generated token
         return res.status(200).json({ token })
     }
 
     /**
-     * Handles user logout by deleting the authentication token
+     *This Handles user logout by deleting the authentication token
      * @param {Object} req - The request object
      * @param {Object} res - The response object
      * @returns {Object} - The response object with status 204 on success or an error message
      */
+    // static async get disconnect
     static async getDisconnect(req, res) {
-        // Extract the token from the headers
+        // This Extract the token from the headers
         const token = req.header('X-Token') || null;
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
 
-        // Retrieve the token from Redis
+        // This Retrieve the token from Redis
         const redisToken = await redisClient.get(`auth_${token}`);
         if (!redisToken) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
 
-        // Delete the token from Redis
+        // This Delete the token from Redis
         await redisClient.del(`auth_${token}`);
         return res.status(204).send();
     }
 }
 
+// The module export
 module.exports = AuthController;

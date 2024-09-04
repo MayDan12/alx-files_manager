@@ -11,12 +11,12 @@ class AppController {
   // Static getStatus
   static getStatus(req, res) {
     const status = {
-      redis: redisClient.isAlive(), 
+      redis: redisClient.isAlive(),
       // This Check if Redis client is alive
-      db: dbClient.isAlive(), 
+      db: dbClient.isAlive(),
       // This Check if MongoDB client is alive
     };
-    res.status(200).send(status); 
+    res.status(200).send(status);
     // This code Send the status as response
   }
 
@@ -28,10 +28,10 @@ class AppController {
   // async getStat
   static async getStat(req, res) {
     const stats = {
-      users: await dbClient.nbUsers(), //This Get the number of users from MongoDB
-      files: await dbClient.nbFiles(), //This Get the number of files from MongoDB
+      users: await dbClient.nbUsers(), // This Get the number of users from MongoDB
+      files: await dbClient.nbFiles(), // This Get the number of files from MongoDB
     };
-    res.status(200).send(stats); //This Send the statistics as response
+    res.status(200).send(stats); // This Send the statistics as response
   }
 
   /**
@@ -41,7 +41,7 @@ class AppController {
    */
   // The static async create user
   static async createUser(req, res) {
-    const { email, password } = req.body; //This Get email and password from request body
+    const { email, password } = req.body; // This Get email and password from request body
     if (!email || !password) {
       return res.status(400).send({ error: 'Missing email or password' }); // Send error if email or password is missing
     }
@@ -67,13 +67,13 @@ class AppController {
     }
 
     try {
-      const user = await dbClient.findUser(email); //The Find the user in MongoDB
+      const user = await dbClient.findUser(email); // The Find the user in MongoDB
       if (!user) {
         return res.status(404).send({ error: 'User not found' }); // Send error if user is not found
       }
-      return res.status(200).send(user); //The  Send the user as response
+      return res.status(200).send(user); // The  Send the user as response
     } catch (error) {
-      //The Send error if there is a server issue
+      // The Send error if there is a server issue
       return res.status(500).send({ error: error.message });
     }
   }

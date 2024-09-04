@@ -1,4 +1,4 @@
-//This is the controllers/UsersController.js
+// This is the controllers/UsersController.js
 import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
 
@@ -25,6 +25,7 @@ class UsersController {
       res.status(404).json({ error: 'User not found' });
     }
   }
+
   // The static async getme
   static async getMe(req, res) {
     const token = req.headers['x-token'];

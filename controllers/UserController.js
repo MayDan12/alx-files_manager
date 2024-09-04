@@ -1,7 +1,8 @@
-// controllers/UsersController.js
+//This is the controllers/UsersController.js
 import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
 
+// The UserController class
 class UsersController {
   static async createUser(req, res) {
     const { email, password } = req.body;
@@ -13,6 +14,7 @@ class UsersController {
     }
   }
 
+  // The static async find user
   static async findUser(req, res) {
     const { email } = req.query;
     try {
